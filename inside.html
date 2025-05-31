@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Page</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { text-align: center; background: linear-gradient(to right, #ff9966, #ff5e62); color: white; transition: background 0.5s; }
+        .banner { width: 100%; padding: 20px; background: rgba(0, 0, 0, 0.3); font-size: 24px; }
+        .content { margin-top: 50px; font-size: 18px; }
+        .settings-btn { margin-top: 20px; padding: 10px; border: none; border-radius: 5px; background: #ffd700; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        .settings-btn:hover { background: #ffa500; }
+        .settings-menu { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); text-align: center; width: 250px; }
+        .close-btn { margin-bottom: 10px; border: none; padding: 8px; border-radius: 5px; cursor: pointer; background: gray; color: white; }
+        .toggle-container { margin-top: 10px; }
+        .toggle-label { display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; }
+        .toggle-switch { position: relative; display: inline-block; width: 50px; height: 24px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: gray; border-radius: 24px; transition: 0.4s; }
+        .slider::before { content: ""; position: absolute; height: 18px; width: 18px; left: 4px; bottom: 3px; background-color: white; border-radius: 50%; transition: 0.4s; }
+        input:checked + .slider { background-color: #ffd700; }
+        input:checked + .slider::before { transform: translateX(26px); }
+        .roblox-btn { display: block; margin: 10px auto; padding: 10px; border: none; border-radius: 5px; background: #0070ff; color: white; cursor: pointer; text-decoration: none; }
+        .roblox-btn:hover { background: #0057cc; }
+    </style>
+</head>
+<body>
+    <div class="banner">Welcome to the Website!</div>
+
+    <div class="content">
+        <h2>Hello, <span id="userName"></span>!</h2>
+        <p>Enjoy your stay.</p>
+    </div>
+
+    <button class="settings-btn" onclick="toggleSettings()">Settings</button>
+
+    <div class="settings-menu" id="settingsMenu">
+        <button class="close-btn" onclick="toggleSettings()">Close</button>
+        <p class="toggle-label">Mode: <span id="modeLabel">Morning</span></p>
+        <label class="toggle-switch">
+            <input type="checkbox" id="modeToggle">
+            <span class="slider"></span>
+        </label>
+        <a href="https://www.roblox.com" target="_blank" class="roblox-btn">Go to Roblox</a>
+    </div>
+
+    <script>
+        const username = localStorage.getItem("currentUser");
+        document.getElementById("userName").textContent = username ? username : "Guest";
+
+        function toggleSettings() {
+            const menu = document.getElementById("settingsMenu");
+            menu.style.display = menu.style.display === "block" ? "none" : "block";
+        }
+
+        const modeToggle = document.getElementById("modeToggle");
+        const modeLabel = document.getElementById("modeLabel");
+
+        modeToggle.addEventListener("change", () => {
+            if (modeToggle.checked) {
+                document.body.style.background = "linear-gradient(to right, #f8e08e, #ffcc00)";
+                modeLabel.textContent = "Morning";
+            } else {
+                document.body.style.background = "linear-gradient(to right, #2c3e50, #1a1a2e)";
+                modeLabel.textContent = "Night";
+            }
+        });
+    </script>
+</body>
+</html>
