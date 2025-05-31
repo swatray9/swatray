@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; background: linear-gradient(to right, #4b6cb7, #182848); }
+        .container { width: 350px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); text-align: center; }
+        h2 { color: white; margin-bottom: 20px; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: none; border-radius: 5px; background: rgba(255, 255, 255, 0.2); color: white; outline: none; }
+        input::placeholder { color: white; }
+        button { width: 100%; padding: 10px; margin-top: 10px; border: none; border-radius: 5px; background: #ffd700; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #ffa500; }
+        .switch { margin-top: 15px; color: white; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 id="title">Login</h2>
+        <input type="text" id="usaername" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="handleAction()" id="actionButton">Login</button>
+        <p class="switch" onclick="toggleForm()">Don't have an account? Register</p>
+    </div>
+
+    <script>
+        let isLogin = true;
+        function toggleForm() {
+            isLogin = !isLogin;
+            document.getElementById("title").textContent = isLogin ? "Login" : "Register";
+            document.getElementById("actionButton").textContent = isLogin ? "Login" : "Register";
+            document.querySelector(".switch").textContent = isLogin ? "Don't have an account? Register" : "Already have an account? Login";
+        }
+        
+        function handleAction() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            if (isLogin) {
+                const storedUser = localStorage.getItem(username);
+                if (storedUser && storedUser === password) {
+                    localStorage.setItem("currentUser", username);
+                    window.location.href = "inside.html"; // Redirects to inside page
+                } else {
+                    alert("Invalid credentials!");
+                }
+            } else {
+                if (username && password) {
+                    localStorage.setItem(username, password);
+                    alert("Registration successful!");
+                    toggleForm();
+                } else {
+                    alert("Please fill in all fields.");
+                }
+            }
+        }
+    </script>
+</body>
+</html>
