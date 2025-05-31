@@ -1,0 +1,2 @@
+# swatray
+just test
